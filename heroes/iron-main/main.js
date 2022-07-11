@@ -1,9 +1,8 @@
-
-import {loadGLTF} from "../../libs/loader.js";
+import {loadAudio, loadGLTF} from "../../libs/loader.js";
 const THREE = window.MINDAR.IMAGE.THREE;
 
 document.addEventListener('DOMContentLoaded', () => {
-    const start = async(() => {
+    const start = async() => { 
         const mindarThree = new window.MINDAR.IMAGE.MindARThree({
             container: document.body,
             imageTargetSrc: '../../targets/hero1.mind',
@@ -15,8 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
         scene.add(light);
 
         const ironMan = await loadGLTF('../../models/hero/iron-man/scene.gltf');
-        ironMan.scene.scale.set(0.2, 0.2, 0.2);
+        ironMan.scene.scale.set(0.1, 0.1, 0.1);
         ironMan.scene.position.set(0, -0.4, 0);
+        ironMan.scene.userData.clickable = true;
 
         const anchor = mindarThree.addAnchor(0);
         anchor.group.add(ironMan.scene);
@@ -25,10 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
         renderer.setAnimationLoop(() => {
             renderer.render(scene,camera);
         });
-    });
+    }
     start();
 });
-
 
 
 
